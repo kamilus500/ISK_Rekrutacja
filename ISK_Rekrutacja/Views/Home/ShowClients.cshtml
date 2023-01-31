@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ISK_Rekrutacja.DAL.Client>
+
+@{
+    ViewData["Title"] = "ShowClients";
+}
+
+<form autocomplete="off" asp-antiforgery="true" asp-action="ExportToExcel" method="post">
+    <button type="submit" id="btnsubmit" class="btn btn-success">Export to Excel</button>
+</form>
+
+<form asp-action="ShowClients" method="get">
+    <input type="text" name="searchName"/>
+    <button class="btn btn-secondary" type="submit">Search</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-clientId="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
